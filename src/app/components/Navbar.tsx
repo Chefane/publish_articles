@@ -12,7 +12,7 @@ const Navbar = () => {
         </li>
         <li className="nav-item">
           <Link className="nav-link" href="/signup">
-            Sign Up
+            Create Account
           </Link>
         </li>
         <li className="nav-item">
