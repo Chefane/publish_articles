@@ -1,7 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
+
 import connectDB from "@/app/utils/db";
 import User from "@/app/pages/api/models/register_model";
 import { NextRequest, NextResponse } from "next/server";
+import bcrypt from 'bcrypt';
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,10 +19,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       username,
       email,
-      password,
+      password: hashedPassword,
     });
 
     const savedUser = await newUser.save();
