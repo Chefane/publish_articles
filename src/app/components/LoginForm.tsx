@@ -1,4 +1,4 @@
-// components/SignupForm.js
+'use client';
 import React from 'react';
 
 const LoginForm = () => {
