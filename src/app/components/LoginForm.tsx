@@ -1,9 +1,10 @@
-'use client'
+"use client";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { Card, Form, Button } from "react-bootstrap";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -25,45 +26,52 @@ const LoginForm = () => {
       expirationDate.setHours(expirationDate.getHours() + 1);
 
       Cookies.set("auth_token", token, { expires: expirationDate });
-      router.push('/publish');
-
+      router.push("/publish");
     } catch (error) {
       console.error("Login failed", error);
     } finally {
       setIsLoading(false);
     }
   };
-  return (
-    <div className="signup-form-container">
-      <h2 className="header">Login</h2>
-      <form className="signup-form">
-        <div className="form-group">
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="enter your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
 
-        <button onClick={handleLogin} disabled={isLoading}>
-          {" "}
-          {isLoading ? "Loading..." : "Login"}
-        </button>
-      </form>
-    </div>
+  return (
+    <Card>
+      <Card.Body>
+        <Card.Title className="text-center">Login</Card.Title>
+        <Form>
+          <Form.Group className="mb-3" controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <div className="text-center">
+            <Button onClick={handleLogin} disabled={isLoading}>
+              {" "}
+              {isLoading ? "Signin in...." : "Sign in"}
+            </Button>
+          </div>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 

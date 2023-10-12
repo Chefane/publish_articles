@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import { Form, Button, Spinner, Toast } from "react-bootstrap";
-import { toast } from 'react-toastify';
+import { Form, Button, Spinner, Toast, Card } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,6 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -23,67 +22,72 @@ const SignupForm = () => {
         password,
       });
       if (response.status === 200) {
-         console.log("Registration successful", response.data);
+        console.log("Registration successful", response.data);
       }
 
       if (response.status === 400) {
         console.log("user already registered", response.data);
-     }
-   
+      }
     } catch (err: any) {
-       setError(err.response.data.message);
+      setError(err.response.data.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="signup-form-container">
-      <h2 className="header">Create Account</h2>
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="enter your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+    <Card>
+      <Card.Body>
+        <Card.Title className="text-center">Login</Card.Title>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="Enter Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <Button type="submit" disabled={loading}>
-          {loading ? (
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          ) : (
-            "Sign up"
-          )}
-        </Button>
-      </form>
-
-    </div>
+          <div className="text-center">
+            <Button type="submit" disabled={loading}>
+              {loading ? (
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              ) : (
+                "Sign up"
+              )}
+            </Button>
+          </div>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 

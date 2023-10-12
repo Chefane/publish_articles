@@ -14,10 +14,10 @@ interface ArticlesData {
 }
 
 const ArticleCard: React.FC = () => {
-  const [showContent, setShowContent] = useState(false);
+  const [showFullContent, setShowFullContent] = useState(false);
 
   const toggleContent = () => {
-    setShowContent(!showContent);
+    setShowFullContent(!showFullContent);
   };
   const [articlesData, setArticlesData] = useState<ArticlesData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -96,11 +96,16 @@ const ArticleCard: React.FC = () => {
                 <Card.Subtitle className="mb-2 text-muted">
                   Published on: {formatPublishedDate(articles.published_date)}
                 </Card.Subtitle>
-                {showContent ? <Card.Text> {articles.story} </Card.Text> : null}
-
+                <Card.Text> 
+                {showFullContent
+                    ? articles.story
+                    : articles.story.slice(0, 500) + "..."}
+                </Card.Text>
+                {articles.story.length > 500 && (
                 <Button variant="primary" onClick={toggleContent}>
-                  {showContent ? "See Less" : "See More"}
+                {showFullContent ? "See Less" : "See More"}
                 </Button>
+                 )}
                 <p className="card-text">
                   <small className="text-muted"></small>
                 </p>
