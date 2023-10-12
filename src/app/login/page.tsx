@@ -5,8 +5,8 @@ import LoginForm from "../components/LoginForm";
 export default function Login() {
     return  <>
     <Navbar/>
-     <main className={styles.main}>
+    <div className="container fluid" style={{marginTop: "10%"}}>
     <LoginForm/>
-   </main>
+   </div>
    </>
   }

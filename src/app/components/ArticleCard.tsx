@@ -15,12 +15,18 @@ interface ArticlesData {
 
 const ArticleCard: React.FC = () => {
   const [showFullContent, setShowFullContent] = useState(false);
+ 
 
-  const toggleContent = () => {
-    setShowFullContent(!showFullContent);
-  };
+  // const toggleContent = () => {
+  //   setShowFullContent(!showFullContent);
+  // };
   const [articlesData, setArticlesData] = useState<ArticlesData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState<{ [key: number]: boolean }>({});
+
+  const toggleContent = (index: number) => {
+    setShowContent((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
 
   const formatPublishedDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
@@ -45,6 +51,14 @@ const ArticleCard: React.FC = () => {
           const data = await response.json();
           if (Array.isArray(data.articles)) {
             setArticlesData(data.articles);
+
+            const initialShowContentState: { [key: number]: boolean } = data.articles.reduce(
+              (acc: any, _ : any, index: any) => ({ ...acc, [index]: false }),
+              {}
+            );
+            
+            setShowContent(initialShowContentState);
+
           } else {
             throw new Error("Data.articles is not an array");
           }
@@ -97,13 +111,13 @@ const ArticleCard: React.FC = () => {
                   Published on: {formatPublishedDate(articles.published_date)}
                 </Card.Subtitle>
                 <Card.Text> 
-                {showFullContent
+                {showContent[index]
                     ? articles.story
-                    : articles.story.slice(0, 500) + "..."}
+                    : articles.story.slice(0, 500) + "..."}      
                 </Card.Text>
                 {articles.story.length > 500 && (
-                <Button variant="primary" onClick={toggleContent}>
-                {showFullContent ? "See Less" : "See More"}
+                <Button variant="primary" onClick={() => toggleContent(index)}>
+                 {showContent[index] ? "See Less" : "See More"}
                 </Button>
                  )}
                 <p className="card-text">

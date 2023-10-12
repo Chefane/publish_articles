@@ -8,9 +8,9 @@ import SignupForm from "../components/SignupForm";
 export default function Signup() {
   return <>
     <Navbar />
-    <main className={styles.main}>
+    <div className="container fluid" style={{marginTop: "10%"}}>
       <SignupForm />
-    </main>
+    </div>
   </>
 
 }
