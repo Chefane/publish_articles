@@ -4,33 +4,42 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, Toast } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const router = useRouter();
 
   const handleLogin = async () => {
     try {
-      setIsLoading(true);
+      setLoading(true);
 
       const response = await axios.post("pages/api/login", {
         username,
         password,
       });
-      const token = response.data.token;
+      if (response.status === 401) {
+        setError("User no registered");
+      } else if (response.status === 400) {
+        setError("username or pasword incorrect");
+      } else {
+        const token = response.data.token;
 
-      const expirationDate = new Date();
-      expirationDate.setHours(expirationDate.getHours() + 1);
+        const expirationDate = new Date();
+        expirationDate.setHours(expirationDate.getHours() + 1);
 
-      Cookies.set("auth_token", token, { expires: expirationDate });
-      router.push("/publish");
-    } catch (error) {
-      console.error("Login failed", error);
+        Cookies.set("auth_token", token, { expires: expirationDate });
+        router.push("/publish");
+      }
+    } catch (error: any) {
+      setError(error.response.data.message);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -64,12 +73,54 @@ const LoginForm = () => {
           </Form.Group>
 
           <div className="text-center">
-            <Button onClick={handleLogin} disabled={isLoading}>
-              {" "}
-              {isLoading ? "Signin in...." : "Sign in"}
+            <Button onClick={handleLogin} disabled={loading}>
+              {loading ? (
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              ) : (
+                "Sign in"
+              )}
             </Button>
           </div>
         </Form>
+        <Toast
+          show={!!success}
+          onClose={() => setSuccess("")}
+          delay={3000}
+          autohide
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            color: "white",
+          }}
+          bg="success"
+        >
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">Success</strong>
+          </Toast.Header>
+          <Toast.Body>{success}</Toast.Body>
+        </Toast>
+
+        <Toast
+          show={!!error}
+          onClose={() => setError("")}
+          delay={3000}
+          autohide
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            color: "white",
+          }}
+          bg="danger"
+        >
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">Error</strong>
+          </Toast.Header>
+          <Toast.Body>{error}</Toast.Body>
+        </Toast>
       </Card.Body>
     </Card>
   );

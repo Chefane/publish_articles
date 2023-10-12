@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Form, Button, Toast, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
@@ -19,25 +18,23 @@ const PublishForm = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/pages/api/publish", formData); // Replace 'apiEndpoint' with your actual API endpoint
+      const response = await axios.post("/pages/api/publish", formData);
 
       if (response.status === 200) {
-        console.log("submission Successsful");
+        setSuccess("Story Published Successfully");
+      } else if (response.status === 400) {
+        setError("Story Already Published");
       }
-      else if (response.status === 400){
-        console.log("Story Already Published!")
-      } else {
-        console.error("Submission failed");
-      }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (err: any) {
+      setError(err.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -52,15 +49,9 @@ const PublishForm = () => {
   };
 
   return (
-    <div
-      style={{
-        borderRadius: "10px",
-        borderColor: "#ccc",
-        padding: "10px",
-        fontSize: "16px",
-      }}
-    >
-
+    <Card>
+      <Card.Body>
+        <Card.Title className="text-center">Publish Articles</Card.Title>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>Publisher Name</Form.Label>
@@ -140,15 +131,53 @@ const PublishForm = () => {
                   role="status"
                   aria-hidden="true"
                 />
-                 Publishing...
+                
+                Publishing...
               </>
             ) : (
               "Publish Story"
             )}
           </Button>
         </Form>
-   
-    </div>
+        <Toast
+          show={!!success}
+          onClose={() => setSuccess("")}
+          delay={3000}
+          autohide
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            color: "white",
+          }}
+          bg="success"
+        >
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">Success</strong>
+          </Toast.Header>
+          <Toast.Body>{success}</Toast.Body>
+        </Toast>
+
+        <Toast
+          show={!!error}
+          onClose={() => setError("")}
+          delay={3000}
+          autohide
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            color: "white",
+          }}
+          bg="danger"
+        >
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">Error</strong>
+          </Toast.Header>
+          <Toast.Body>{error}</Toast.Body>
+        </Toast>
+      </Card.Body>
+    </Card>
   );
 };
 

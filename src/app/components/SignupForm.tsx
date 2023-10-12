@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import { Form, Button, Spinner, Toast, Card } from "react-bootstrap";
-import { toast } from "react-toastify";
+import { Form, Button, Toast, Card } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
@@ -10,6 +10,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -22,11 +23,11 @@ const SignupForm = () => {
         password,
       });
       if (response.status === 200) {
-        console.log("Registration successful", response.data);
+        setSuccess("Registration successful");
       }
 
       if (response.status === 400) {
-        console.log("user already registered", response.data);
+        setError("User already registered");
       }
     } catch (err: any) {
       setError(err.response.data.message);
@@ -38,7 +39,7 @@ const SignupForm = () => {
   return (
     <Card>
       <Card.Body>
-        <Card.Title className="text-center">Login</Card.Title>
+        <Card.Title className="text-center">Create Account</Card.Title>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="username">
             <Form.Label>Username</Form.Label>
@@ -52,7 +53,7 @@ const SignupForm = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="username">
-            <Form.Label>Username</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
               name="email"
@@ -86,6 +87,44 @@ const SignupForm = () => {
             </Button>
           </div>
         </Form>
+
+        <Toast
+          show={!!success}
+          onClose={() => setSuccess("")}
+          delay={3000}
+          autohide
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            color: "white",
+          }}
+          bg="success"
+        >
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">Success</strong>
+          </Toast.Header>
+          <Toast.Body>{success}</Toast.Body>
+        </Toast>
+
+        <Toast
+          show={!!error}
+          onClose={() => setError("")}
+          delay={3000}
+          autohide
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            color: "white",
+          }}
+          bg="danger"
+        >
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">Error</strong>
+          </Toast.Header>
+          <Toast.Body>{error}</Toast.Body>
+        </Toast>
       </Card.Body>
     </Card>
   );

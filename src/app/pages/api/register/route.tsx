@@ -1,8 +1,7 @@
-
 import connectDB from "@/app/utils/db";
 import User from "@/app/pages/api/models/register_model";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 export async function POST(request: NextRequest) {
   try {
