@@ -18,13 +18,15 @@ const PublisherSchema = new mongoose.Schema({
 
   url: {
     type: String,
-    required: [true, 'PLease enter password'],
+    required: [true, 'PLease enter url'],
   },
 
   published_date: {
     type: Date,
-    required: [true, 'PLease enter password'],
+    required: [true, 'PLease enter date'],
   },
 });
+
+
 
 export default mongoose.models.Publisher || mongoose.model('Publisher', PublisherSchema);
