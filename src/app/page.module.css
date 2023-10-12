@@ -6,6 +6,14 @@
   padding: 6rem;
   min-height: 100vh;
 }
+.publsih {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top:4%;
+  min-height: 100vh;
+}
 
 .description {
   display: inherit;

@@ -1,23 +1,17 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-import Navbar from './components/Navbar'
-import Articles from './components/Articles';
+import Image from "next/image";
+import styles from "./page.module.css";
+import Navbar from "./components/Navigation";
+import ArticleCard from "@/app/components/ArticleCard";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <>
-     <Navbar/>
-      <main className={styles.main}>
-      <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-4">
-        <Articles/>
-        </div>
+      <Navbar/>
+      <div className="container fluid">
+        <ArticleCard />
       </div>
-    </div>
-      
-    </main>
     </>
-  
-  )
-}
+  );
+};
+
+export default Home;

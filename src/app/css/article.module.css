@@ -1,0 +1,14 @@
+.articleContainer {
+    border: 2px solid blue;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 100px;
+  }
+  
+  @media (max-width: 768px) {
+    .articleContainer {
+      padding: 10px;
+      margin: 10px auto;
+      max-width: 90%;
+    }
+  }

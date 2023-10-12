@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navigation";
 import styles from "@/app/page.module.css";
 import LoginForm from "../components/LoginForm";
 

@@ -6,7 +6,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { ToastContainer } from 'react-bootstrap';
 import 'react-toastify/dist/ReactToastify.css';
 // own css files here
-import '../styles/globals.css'
+import '@/app/page.module.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   // You can add global styles or context providers here
