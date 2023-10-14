@@ -16,10 +16,11 @@ const LoginForm = () => {
   const router = useRouter();
 
   const handleLogin = async () => {
+
     try {
       setLoading(true);
 
-      const response = await axios.post("pages/api/login", {
+      const response = await axios.post("../pages/api/login", {
         username,
         password,
       });
@@ -34,7 +35,7 @@ const LoginForm = () => {
         expirationDate.setHours(expirationDate.getHours() + 1);
 
         Cookies.set("auth_token", token, { expires: expirationDate });
-        router.push("/publish");
+        router.push("/views/story");
       }
     } catch (error: any) {
       setError(error.response.data.message);

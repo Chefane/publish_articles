@@ -17,7 +17,7 @@ const SignupForm = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("pages/api/register", {
+      const response = await axios.post("../pages/api/register", {
         username,
         email,
         password,

@@ -26,7 +26,7 @@ const PublishForm = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/pages/api/publish", formData);
+      const response = await axios.post("../pages/api/publish", formData);
 
       if (response.status === 200) {
         setSuccess("Story Published Successfully");

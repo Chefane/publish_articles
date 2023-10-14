@@ -1,7 +1,7 @@
-import Navbar from "../components/Navigation";
+import Navbar from "@/app/components/Navigation";
 import Image from 'next/image'
 import styles from '@/app/page.module.css';
-import SignupForm from "../components/SignupForm";
+import SignupForm from "@/app/components/SignupForm";
 
 
 

@@ -20,10 +20,10 @@ const Navigation = () => {
             <Nav.Link href="/" className="text-light">
               Home
             </Nav.Link>
-            <Nav.Link href="/login" className="text-light">
+            <Nav.Link href="/views/login" className="text-light">
               Login
             </Nav.Link>
-            <Nav.Link href="/signup" className="text-light float-right">
+            <Nav.Link href="/views/signup" className="text-light float-right">
               Create Account
             </Nav.Link>
           </Nav>
