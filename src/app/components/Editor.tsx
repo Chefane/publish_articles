@@ -1,32 +1,46 @@
 "use client";
-import React, { useState } from "react";
-import { Container } from 'react-bootstrap';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import React, { useState, useRef, useEffect } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { Container, Form, Button } from "react-bootstrap";
+
+const quillEditorStyles = {
+  width: '80%',
+  height: '400px', // Adjust the height as needed
+  margin: '0 auto', // Center horizontally
+  marginTop: '35vh', // Center vertically
+  transform: 'translateY(-50%)', // Center vertically
+};
 
 interface QuillEditorProps {
-    value: string;
-    onChange: (value: string) => void;
-  }
+  value: string;
+  onChange: (value: string) => void;
+}
 
-  const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
-    const modules = {
-      toolbar: [
-        [{ 'header': '1' }, { 'header': '2' }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        ['link'],
-        ['clean']
-      ],
-    };
+const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
+  const quillRef = useRef<ReactQuill | null>(null);
 
-    return (
-        <ReactQuill
-          value={value}
-          onChange={(content) => onChange(content)}
-          modules={modules}
-        />
-      );
-    };
-    
-    export default QuillEditor;;
+  useEffect(() => {
+    if (quillRef.current) {
+      quillRef.current.getEditor().enable(true); 
+    }
+  }, []);
+
+  return (
+    <Container>
+      <Form>
+        <Form.Group controlId="quillEditor">
+          <ReactQuill
+            ref={quillRef}
+            value={value}
+            onChange={(content) => onChange(content)}
+            theme="snow"
+            style={quillEditorStyles}
+          />
+        </Form.Group>
+      </Form>
+    </Container>
+  );
+};
+
+export default QuillEditor;
