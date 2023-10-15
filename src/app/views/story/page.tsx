@@ -2,11 +2,18 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import styles from "@/app/page.module.css";
-import QuillEditor from "@/app/components/Editor";
 import { Card } from "react-bootstrap";
 
+import dynamic from 'next/dynamic';
+
+const QuillEditor = dynamic(
+  () => import('@/app/components/Editor'),
+  { ssr: false } 
+);
+
 const outputStyles = {
-  marginLeft: "30%"
+  marginLeft: "10%",
+  width: "80%"
   };
 
 const PostArticles: React.FC = () => {
@@ -17,12 +24,12 @@ const PostArticles: React.FC = () => {
   };
 
   return (
-    <div className="container fluid">
+    <div className="container">
       <Card>
-        <h1 style={outputStyles}>Write Your Article Story</h1>
+        <h1 style={{marginTop: "5%", marginLeft:"30%" }}>Write Your Article Story</h1>
         <QuillEditor value={content} onChange={handleEditorChange} />
-        <div  style={{ marginTop: "-8%", marginLeft: "15%" }}>
-          <h2 style={outputStyles}>Review Your Article:</h2>
+        <div>
+          <h2 style={{marginTop: "-8%", marginLeft:"30%" }}>Review Your Article:</h2>
           <div
             dangerouslySetInnerHTML={{ __html: content }}
             style={outputStyles}
