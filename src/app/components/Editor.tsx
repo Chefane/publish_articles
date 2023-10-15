@@ -25,6 +25,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
   const quillRef = useRef<ReactQuillType | null>(null);
 
   const customToolbarOptions = [
+
+    [{ 'header': '1' }, { 'header': '2' }],
     ["bold", "italic", "underline", "strike"],
     [{ list: "ordered" }, { list: "bullet" }],
     ["link", "image"],
