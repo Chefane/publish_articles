@@ -45,8 +45,8 @@ const ArticleCard: React.FC = () => {
       try {
         setTimeout(async () => {
           const response = await fetch("pages/api/publish-stories");
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
+          if (!response) {
+            throw new Error("No articles yet");
           }
           const data = await response.json();
           if (Array.isArray(data.articles)) {

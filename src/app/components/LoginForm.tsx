@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { Card, Form, Button, Toast } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
+import jwtDecode from "jwt-decode";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -14,6 +15,7 @@ const LoginForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
+  const [userData, setUserData] = useState<{ userId: string, userName: string, userEmail: string } | null>(null);
 
   const handleLogin = async () => {
 
@@ -30,6 +32,10 @@ const LoginForm = () => {
         setError("username or pasword incorrect");
       } else {
         const token = response.data.token;
+        const decodedToken = jwtDecode(token);
+        const data = JSON.stringify(decodedToken);
+        const jsonData = JSON.parse(data); 
+        const userRole = jsonData.userRole;
 
         const expirationDate = new Date();
         expirationDate.setHours(expirationDate.getHours() + 1);
@@ -38,7 +44,7 @@ const LoginForm = () => {
         router.push("/views/publish");
       }
     } catch (error: any) {
-      setError(error.response.data.message);
+      setError(error);
     } finally {
       setLoading(false);
     }
