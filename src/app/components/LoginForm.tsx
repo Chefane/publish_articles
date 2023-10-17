@@ -35,7 +35,7 @@ const LoginForm = () => {
         expirationDate.setHours(expirationDate.getHours() + 1);
 
         Cookies.set("auth_token", token, { expires: expirationDate });
-        router.push("/views/story");
+        router.push("/views/publish");
       }
     } catch (error: any) {
       setError(error.response.data.message);

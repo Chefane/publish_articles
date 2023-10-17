@@ -5,8 +5,13 @@ import { Form, Button, Toast, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
+import { FaArrowRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+
 
 const PublishForm = () => {
+
+  const router = useRouter();
   const authToken = Cookies.get("auth_token");
 
   const [formData, setFormData] = useState({
@@ -47,20 +52,24 @@ const PublishForm = () => {
       [name]: value,
     });
   };
+  
+    const handleNavigation = () => {
+      router.push("/views/story");
+    };
 
   return (
     <Card>
       <Card.Body>
-        <Card.Title className="text-center">Publish Articles</Card.Title>
+        <Card.Title className="text-center">Summarise Your Story</Card.Title>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
-            <Form.Label>Publisher Name</Form.Label>
+            <Form.Label>Author Name</Form.Label>
             <Form.Control
               type="text"
               name="publisher_name"
               value={formData.publisher_name}
               onChange={handleChange}
-              placeholder="Add Publisher Name"
+              placeholder="Add Author Name"
               required
             />
           </Form.Group>
@@ -131,12 +140,14 @@ const PublishForm = () => {
                   role="status"
                   aria-hidden="true"
                 />
-                
-                Publishing...
+                Saving...
               </>
             ) : (
-              "Publish Story"
+              "Save Story"
             )}
+          </Button>
+          <Button variant="primary" onClick={handleNavigation} style={{marginLeft:"70%", marginTop:"1%"}}>
+            Write Entire Story <FaArrowRight />
           </Button>
         </Form>
         <Toast

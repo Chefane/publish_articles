@@ -26,8 +26,8 @@ const PostArticles: React.FC = () => {
   return (
     <div className="container">
       <Card>
-        <h1 style={{marginTop: "5%", marginLeft:"30%" }}>Write Your Article Story</h1>
-        <QuillEditor value={content} onChange={handleEditorChange} />
+        <h1 style={{marginTop: "5%", marginLeft:"30%", marginBottom:"-3%" }}>Write Your Article Story</h1>
+        <QuillEditor value={content} onChange={handleEditorChange}/>
         <div>
           <h2 style={{marginTop: "-8%", marginLeft:"30%" }}>Review Your Article:</h2>
           <div
