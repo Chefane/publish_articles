@@ -13,17 +13,21 @@ const PublisherSchema = new mongoose.Schema({
 
   story: {
     type: String,
-    required: [true, 'PLease enter your story'],
+    required: [true, 'Please enter your story'],
   },
 
   url: {
     type: String,
-    required: [true, 'PLease enter url'],
+    required: [true, 'Please enter url'],
+  },
+  article_image: {
+    type: Buffer,
+    required: [true, 'Please enter the image of this article'],
   },
 
   published_date: {
     type: Date,
-    required: [true, 'PLease enter date'],
+    required: [true, 'Please enter date'],
   },
 });
 
