@@ -15,10 +15,13 @@ const LoginForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
-  const [userData, setUserData] = useState<{ userId: string, userName: string, userEmail: string } | null>(null);
+  const [userData, setUserData] = useState<{
+    userId: string;
+    userName: string;
+    userEmail: string;
+  } | null>(null);
 
   const handleLogin = async () => {
-
     try {
       setLoading(true);
 
@@ -34,14 +37,37 @@ const LoginForm = () => {
         const token = response.data.token;
         const decodedToken = jwtDecode(token);
         const data = JSON.stringify(decodedToken);
-        const jsonData = JSON.parse(data); 
+        const jsonData = JSON.parse(data);
         const userRole = jsonData.userRole;
 
-        const expirationDate = new Date();
-        expirationDate.setHours(expirationDate.getHours() + 1);
+        if (userRole === "author") {
+          const expirationDate = new Date();
+          expirationDate.setHours(expirationDate.getHours() + 1);
 
-        Cookies.set("auth_token", token, { expires: expirationDate });
-        router.push("/views/publish");
+          Cookies.set("auth_token", token, { expires: expirationDate });
+          router.push("/views/write-story");
+
+        } else if (userRole === "editor") {
+          const expirationDate = new Date();
+          expirationDate.setHours(expirationDate.getHours() + 1);
+
+          Cookies.set("auth_token", token, { expires: expirationDate });
+          router.push("/views/edit-stories");
+
+        } else if (userRole === "publisher") {
+          const expirationDate = new Date();
+          expirationDate.setHours(expirationDate.getHours() + 1);
+
+          Cookies.set("auth_token", token, { expires: expirationDate });
+          router.push("/views/publish-stories");
+
+        } else if (userRole === "admin"){
+          const expirationDate = new Date();
+          expirationDate.setHours(expirationDate.getHours() + 1);
+
+          Cookies.set("auth_token", token, { expires: expirationDate });
+          router.push("/views/admin-dashboard");
+        }
       }
     } catch (error: any) {
       setError(error);
