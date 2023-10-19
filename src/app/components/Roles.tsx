@@ -76,9 +76,9 @@ const AssignRole = () => {
               onChange={(e) => setSelectedRole(e.target.value)}
             >
               <option>Select Role</option>
-              <option value="1">Author</option>
-              <option value="2">Editor</option>
-              <option value="3">Publisher</option>
+              <option value="author">Author</option>
+              <option value="editor">Editor</option>
+              <option value="publisher">Publisher</option>
             </Form.Select>
           </Form.Group>
 
