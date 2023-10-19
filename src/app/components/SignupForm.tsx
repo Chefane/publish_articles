@@ -12,7 +12,7 @@ const SignupForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleUserRegistration = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
 
@@ -40,7 +40,7 @@ const SignupForm = () => {
     <Card>
       <Card.Body>
         <Card.Title className="text-center">Create Account</Card.Title>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleUserRegistration}>
           <Form.Group className="mb-3" controlId="username">
             <Form.Label>Username</Form.Label>
             <Form.Control
