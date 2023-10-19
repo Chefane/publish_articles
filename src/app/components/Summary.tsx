@@ -9,7 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 
-const PublishForm = () => {
+const WriteStoryForm = () => {
 
   const router = useRouter();
   const authToken = Cookies.get("auth_token");
@@ -19,19 +19,42 @@ const PublishForm = () => {
     article_title: "",
     story: "",
     url: "",
+    article_image: null as string | null,
     published_date: "",
   });
+
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileInput = e.target;
+  
+    if (fileInput) {
+      const file = fileInput.files ? fileInput.files[0] : null;
+      
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          if (event.target) {
+            setFormData({
+              ...formData,
+              article_image: event.target.result as string,
+            });
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await axios.post("../pages/api/publish", formData);
+      const response = await axios.post("../pages/api/summary", formData);
 
       if (response.status === 200) {
         setSuccess("Story Published Successfully");
@@ -90,7 +113,7 @@ const PublishForm = () => {
               as="textarea"
               name="story"
               rows={5}
-              placeholder="Enter your article story here....."
+              placeholder="Summarise your story here....."
               style={{
                 borderRadius: "10px",
                 borderColor: "#ccc",
@@ -111,6 +134,15 @@ const PublishForm = () => {
               onChange={handleChange}
               placeholder="Add URL for the entire story"
               required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Article Image</Form.Label>
+            <Form.Control
+              type="file"
+              name="article_image"
+              accept="image/*"
+              onChange={handleImageChange}
             />
           </Form.Group>
           <Form.Group controlId="published_date">
@@ -192,4 +224,4 @@ const PublishForm = () => {
   );
 };
 
-export default PublishForm;
+export default WriteStoryForm;
