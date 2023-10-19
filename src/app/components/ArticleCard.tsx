@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, Card, Button } from "react-bootstrap";
-import styles from "@/app/css/article.module.css";
+import styles from "@/app/styles/article.module.css";
 
 interface ArticlesData {
   publisher_name: string;
