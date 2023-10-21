@@ -5,31 +5,33 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import styles from "@/app/styles/navigation.module.css";
 import Link from "next/link";
 
 const Navigation = () => {
   return (
-    <Navbar expand="lg" className="bg-primary">
-      <Container>
-        <Navbar.Brand href="/" className="text-light">
-          Article-Publisher
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-aut">
-            <Nav.Link href="/" className="text-light">
-              Home
-            </Nav.Link>
-            <Nav.Link href="/views/login" className="text-light">
-              Login
-            </Nav.Link>
-            <Nav.Link href="/views/signup" className="text-light float-right">
-              Create Account
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <Navbar bg="light" expand="lg">
+    <Navbar.Brand href="#">Articles</Navbar.Brand>
+    <Navbar.Toggle aria-controls="navbarSupportedContent" />
+    <Navbar.Collapse id="navbarSupportedContent">
+      <Nav className="mr-auto">
+        <Link    className="nav-link" href="/">
+          Home
+        </Link>
+        <Link    className="nav-link" href="/views/login">
+         Login
+        </Link>
+        <Link  className="nav-link" href="/published">
+         Published Articles
+        </Link>
+      </Nav>
+      <Nav  className={styles.align}>
+      <Link  className="nav-link" href="/views/signup">
+         Create Account
+        </Link>
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
   );
 };
 

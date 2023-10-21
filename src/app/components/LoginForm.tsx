@@ -44,7 +44,7 @@ const LoginForm = () => {
           const expirationDate = new Date();
           expirationDate.setHours(expirationDate.getHours() + 1);
 
-          Cookies.set("auth_token", token, { expires: expirationDate });
+          Cookies.set("auth_token", data, { expires: expirationDate });
           router.push("/views/write-story");
 
         } else if (userRole === "editor") {
@@ -106,7 +106,7 @@ const LoginForm = () => {
           </Form.Group>
 
           <div className="text-center">
-            <Button onClick={handleLogin} disabled={loading}>
+            <Button className="btn btn-dark" onClick={handleLogin} disabled={loading}>
               {loading ? (
                 <Spinner animation="border" role="status">
                   <span className="visually-hidden">Loading...</span>

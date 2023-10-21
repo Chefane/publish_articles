@@ -10,22 +10,22 @@ const SideMenu = () => {
     };
 
     return (
-        <nav className={`col-md-3 col-lg-2 d-md-block bg-primary sidebar ${styles['custom-sidebar']}`}>
-          <h4>Admin Dashboard</h4>
+        <nav className={`col-md-3 col-lg-2 d-md-block bg-light  sidebar ${styles['custom-sidebar']}`}>
+          <h4 className='text-dark'>Admin Dashboard</h4>
             <div className="position-sticky">
                 <ul className={`nav flex-column ${styles['dash-content']}`}>
                     <li className="nav-item">
-                        <Nav.Link href="/" className="text-light nav-link">
+                        <Nav.Link href="/" className="text-dark nav-link">
                             <BsHouse /> Home
                         </Nav.Link>
                     </li>
                     <li className="nav-item">
-                        <Nav.Link href="/manage-users" className="text-light nav-link">
+                        <Nav.Link href="/manage-users" className="text-dark nav-link">
                             <BsPeople /> Manage Users
                         </Nav.Link>
                     </li>
                     <li className="nav-item">
-                        <Nav.Link href="/user-profile" className="text-light nav-link">
+                        <Nav.Link href="/user-profile" className="text-dark nav-link">
                             <BsPerson /> User Profile
                         </Nav.Link>
                     </li>

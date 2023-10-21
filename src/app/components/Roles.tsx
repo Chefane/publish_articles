@@ -94,7 +94,7 @@ const AssignRole = () => {
             />
           </Form.Group>
           <div className="text-center">
-            <Button type="submit" disabled={loading}>
+            <Button className="btn btn-dark"  type="submit" disabled={loading}>
               {loading ? (
                 <Spinner animation="border" role="status">
                   <span className="visually-hidden">Loading...</span>

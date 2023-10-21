@@ -11,9 +11,11 @@ export async function POST(request: NextRequest) {
   const reqBody = await request.json();
   const { username, password } = reqBody;
 
+  const collation = { locale: "en_US", strength: 2 }; 
+
   try {
-    const user = await User.findOne({ username });
-    const userRole = await UserRole.findOne({ username });
+    const user = await User.findOne({ username: username }, null, { collation });
+    const userRole = await UserRole.findOne({ username: username }, null, { collation });
 
     if (!user && !userRole) {
       return NextResponse.json(

@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const { publisher_name, article_title, story, url, article_image, published_date } = reqBody;
+    const { author_id, author_name, article_title, article_summary,entire_article, article_image, published_date } = reqBody;
 
     const existingStory = await Publisher.findOne({ article_title });
 
@@ -20,10 +20,11 @@ export async function POST(request: NextRequest) {
     }
 
     const newArticle = new Publisher({
-      publisher_name,
+      author_id,
+      author_name,
       article_title,
-      story,
-      url,
+      article_summary,
+      entire_article,
       article_image,
       published_date,
     });

@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
 
 const PublisherSchema = new mongoose.Schema({
-  publisher_name: {
+
+  author_id: {
+    type: String,
+    required: [true, 'Please add author id'],
+  },
+
+  author_name: {
     type: String,
     required: [true, 'Please add publisher name'],
   },
@@ -11,15 +17,15 @@ const PublisherSchema = new mongoose.Schema({
     unique:true,
   },
 
-  story: {
+  article_summary: {
     type: String,
-    required: [true, 'Please enter your story'],
+    required: [true, 'Please enter summary of your article'],
   },
 
-  url: {
+  entire_article: {
     type: String,
-    required: [true, 'Please enter url'],
   },
+  
   article_image: {
     type: Buffer,
     required: [true, 'Please enter the image of this article'],
