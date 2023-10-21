@@ -9,6 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 
+
 const WriteStoryForm = () => {
 
   const router = useRouter();
@@ -81,6 +82,7 @@ const WriteStoryForm = () => {
     };
 
   return (
+    <>
     <Card>
       <Card.Body>
         <Card.Title className="text-center">Summarise Your Story</Card.Title>
@@ -93,8 +95,7 @@ const WriteStoryForm = () => {
               value={formData.publisher_name}
               onChange={handleChange}
               placeholder="Add Author Name"
-              required
-            />
+              required />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Article Title</Form.Label>
@@ -104,8 +105,7 @@ const WriteStoryForm = () => {
               value={formData.article_title}
               onChange={handleChange}
               placeholder="Add Article Title"
-              required
-            />
+              required />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlTextarea1">
             <Form.Label className="mb-2">Article Body</Form.Label>
@@ -122,8 +122,7 @@ const WriteStoryForm = () => {
               }}
               value={formData.story}
               onChange={handleChange}
-              required
-            />
+              required />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Article URL</Form.Label>
@@ -133,8 +132,7 @@ const WriteStoryForm = () => {
               value={formData.url}
               onChange={handleChange}
               placeholder="Add URL for the entire story"
-              required
-            />
+              required />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Article Image</Form.Label>
@@ -142,8 +140,7 @@ const WriteStoryForm = () => {
               type="file"
               name="article_image"
               accept="image/*"
-              onChange={handleImageChange}
-            />
+              onChange={handleImageChange} />
           </Form.Group>
           <Form.Group controlId="published_date">
             <Form.Label>Published Date</Form.Label>
@@ -152,8 +149,7 @@ const WriteStoryForm = () => {
               name="published_date"
               value={formData.published_date}
               onChange={handleChange}
-              required
-            />
+              required />
           </Form.Group>
           <Button
             variant="primary"
@@ -170,15 +166,14 @@ const WriteStoryForm = () => {
                   animation="border"
                   size="sm"
                   role="status"
-                  aria-hidden="true"
-                />
+                  aria-hidden="true" />
                 Saving...
               </>
             ) : (
               "Save Story"
             )}
           </Button>
-          <Button variant="primary" onClick={handleNavigation} style={{marginLeft:"70%", marginTop:"1%"}}>
+          <Button variant="primary" onClick={handleNavigation} style={{ marginLeft: "70%", marginTop: "1%" }}>
             Write Entire Story <FaArrowRight />
           </Button>
         </Form>
@@ -220,7 +215,7 @@ const WriteStoryForm = () => {
           <Toast.Body>{error}</Toast.Body>
         </Toast>
       </Card.Body>
-    </Card>
+    </Card></>
   );
 };
 
