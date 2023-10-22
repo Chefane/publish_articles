@@ -27,7 +27,7 @@ export async function POST( req: NextRequest, res: NextResponse) {
       } else {
         return NextResponse.json(
           { message: "Article Not Found" },
-          { status: 400 }
+          { status: 401 }
           );
       }
     
