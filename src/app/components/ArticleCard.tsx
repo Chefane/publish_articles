@@ -6,10 +6,9 @@ import { Container, Card, Button } from "react-bootstrap";
 import styles from "@/app/styles/article.module.css";
 
 interface ArticlesData {
-  publisher_name: string;
+  author_name: string;
   article_title: string;
-  story: string;
-  url: string;
+  article_summary: string;
   published_date: string;
 }
 
@@ -105,17 +104,17 @@ const ArticleCard: React.FC = () => {
                   />
                 </div>
                 <Card.Subtitle className="mb-2 text-muted">
-                  Author: {articles.publisher_name}
+                  Author: {articles.author_name}
                 </Card.Subtitle>
                 <Card.Subtitle className="mb-2 text-muted">
                   Published on: {formatPublishedDate(articles.published_date)}
                 </Card.Subtitle>
                 <Card.Text> 
                 {showContent[index]
-                    ? articles.story
-                    : articles.story.slice(0, 500) + "..."}      
+                    ? articles.article_summary
+                    : articles.article_summary.slice(0, 500) + "..."}      
                 </Card.Text>
-                {articles.story.length > 500 && (
+                {articles.article_summary.length > 500 && (
                 <Button variant="primary" onClick={() => toggleContent(index)}>
                  {showContent[index] ? "See Less" : "See More"}
                 </Button>

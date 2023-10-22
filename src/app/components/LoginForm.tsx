@@ -45,14 +45,14 @@ const LoginForm = () => {
           expirationDate.setHours(expirationDate.getHours() + 1);
 
           Cookies.set("auth_token", data, { expires: expirationDate });
-          router.push("/views/write-story");
+          router.push("/views/summarise-article");
 
         } else if (userRole === "editor") {
           const expirationDate = new Date();
           expirationDate.setHours(expirationDate.getHours() + 1);
 
           Cookies.set("auth_token", token, { expires: expirationDate });
-          router.push("/views/edit-stories");
+          router.push("/views/edit-article");
 
         } else if (userRole === "publisher") {
           const expirationDate = new Date();

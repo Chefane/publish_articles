@@ -35,6 +35,7 @@ const WriteStoryForm = () => {
     published_date: "",
   });
 
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -68,7 +69,9 @@ const WriteStoryForm = () => {
       const response = await axios.post("../pages/api/summary", formData);
 
       if (response.status === 200) {
-        setSuccess("Story Published Successfully");
+        setSuccess("Story Saved Successfully");
+        localStorage.setItem('article_title', formData.article_title);
+        handleNavigation();
       } else if (response.status === 400) {
         setError("Story Already Published");
       }
@@ -88,7 +91,7 @@ const WriteStoryForm = () => {
   };
 
   const handleNavigation = () => {
-    router.push("/views/story");
+    router.push("/views/write-article");
   };
 
   return (
@@ -161,6 +164,7 @@ const WriteStoryForm = () => {
               type="submit"
               style={{
                 marginTop: "10px",
+                marginLeft: "40%",
               }}
               disabled={isLoading}
             >
@@ -177,21 +181,6 @@ const WriteStoryForm = () => {
                 </>
               ) : (
                 "Save Article"
-              )}
-            </Button>
-
-            <Button
-              className="btn btn-dark"
-              onClick={handleNavigation}
-              style={{ marginLeft: "70%", marginTop: "1%" }}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <Spinner animation="border" size="sm" role="status" />
-              ) : (
-                <>
-                  Write Entire Article <FaArrowRight />
-                </>
               )}
             </Button>
           </Form>
