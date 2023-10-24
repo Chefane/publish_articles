@@ -15,10 +15,13 @@ export async function GET(request: NextRequest) {
       );
     }
 
+  
+
     return NextResponse.json(
-      { message: "Article Returned Successfully", articles },
+      { message: "Article Returned Successfully", articles},
       { status: 200 }
     );
+
   } catch (error) {
     return NextResponse.json(
       { message: "Internal server error", error },

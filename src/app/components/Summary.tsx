@@ -48,6 +48,7 @@ const WriteStoryForm = () => {
 
       if (file) {
         const reader = new FileReader();
+        
         reader.onload = (event) => {
           if (event.target) {
             setFormData({
@@ -180,7 +181,7 @@ const WriteStoryForm = () => {
                   Saving...
                 </>
               ) : (
-                "Save Article"
+                "Save Article Summary and Continue"
               )}
             </Button>
           </Form>

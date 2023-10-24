@@ -4,27 +4,36 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container, Card, Button } from "react-bootstrap";
 import styles from "@/app/styles/article.module.css";
+import { useRouter } from "next/navigation";
+
+
 
 interface ArticlesData {
+  _id:string;
   author_name: string;
   article_title: string;
   article_summary: string;
+  article_image: string;
+  entire_article: string;
   published_date: string;
 }
 
 const ArticleCard: React.FC = () => {
-  const [showFullContent, setShowFullContent] = useState(false);
- 
-
-  // const toggleContent = () => {
-  //   setShowFullContent(!showFullContent);
-  // };
+    const router = useRouter(); 
+   const [showFullContent, setShowFullContent] = useState(false);
+  
   const [articlesData, setArticlesData] = useState<ArticlesData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showContent, setShowContent] = useState<{ [key: number]: boolean }>({});
+  const [showContent, setShowContent] = useState<{ [key: number]: boolean }>(
+    {}
+  );
 
   const toggleContent = (index: number) => {
-    setShowContent((prev) => ({ ...prev, [index]: !prev[index] }));
+    if (showContent[index]) {
+      router.back();
+    } else {
+      router.push(`/views/article/${articlesData[index]._id}`);
+    }
   };
 
   const formatPublishedDate = (dateString: string) => {
@@ -43,21 +52,20 @@ const ArticleCard: React.FC = () => {
     const fetchData = async () => {
       try {
         setTimeout(async () => {
-          const response = await fetch("pages/api/publish-stories");
+          const response = await fetch("pages/api/publish-article");
           if (!response) {
             throw new Error("No articles yet");
           }
           const data = await response.json();
           if (Array.isArray(data.articles)) {
             setArticlesData(data.articles);
-
-            const initialShowContentState: { [key: number]: boolean } = data.articles.reduce(
-              (acc: any, _ : any, index: any) => ({ ...acc, [index]: false }),
-              {}
-            );
-            
+            const initialShowContentState: { [key: number]: boolean } =
+              data.articles.reduce(
+                (acc: any, _: any, index: any) => ({ ...acc, [index]: false }),
+                {}
+              );
+          
             setShowContent(initialShowContentState);
-
           } else {
             throw new Error("Data.articles is not an array");
           }
@@ -71,6 +79,7 @@ const ArticleCard: React.FC = () => {
 
     fetchData();
   }, []);
+
 
   return (
     <>
@@ -96,9 +105,10 @@ const ArticleCard: React.FC = () => {
                     marginBottom: "10px",
                   }}
                 >
-                  <Image
-                    src="https://img.freepik.com/free-photo/business-people-reading-newspaper_53876-14764.jpg"
-                    alt="Sample Image"
+                  <p>{articles.article_image.toString()}</p>
+                 <Image
+                    src={articles.article_image}
+                    alt=""
                     layout="fill"
                     objectFit="cover"
                   />
@@ -109,16 +119,19 @@ const ArticleCard: React.FC = () => {
                 <Card.Subtitle className="mb-2 text-muted">
                   Published on: {formatPublishedDate(articles.published_date)}
                 </Card.Subtitle>
-                <Card.Text> 
-                {showContent[index]
+                <Card.Text>
+                  {showContent[index]
                     ? articles.article_summary
-                    : articles.article_summary.slice(0, 500) + "..."}      
+                    : articles.article_summary.slice(0, 500) + "..."}
                 </Card.Text>
                 {articles.article_summary.length > 500 && (
-                <Button variant="primary" onClick={() => toggleContent(index)}>
-                 {showContent[index] ? "See Less" : "See More"}
-                </Button>
-                 )}
+                  <Button
+                    variant="primary"
+                    onClick={() => toggleContent(index)}
+                  >
+                    {showContent[index] ? "See Less" : "See More"}
+                  </Button>
+                )}
                 <p className="card-text">
                   <small className="text-muted"></small>
                 </p>
@@ -134,3 +147,5 @@ const ArticleCard: React.FC = () => {
 };
 
 export default ArticleCard;
+
+
