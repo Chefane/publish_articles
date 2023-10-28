@@ -1,4 +1,4 @@
-// add bootstrap css 
+"use client"
 import React from 'react';
 import App, { AppProps } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
