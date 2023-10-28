@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { Form, Button, Toast, Card } from "react-bootstrap";

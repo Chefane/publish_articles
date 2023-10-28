@@ -1,3 +1,4 @@
+"use client"
 import SideMenu from "@/app/components/SideMenu";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AssignRole from "@/app/components/Roles";

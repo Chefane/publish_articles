@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import { Form, Button, Toast, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";

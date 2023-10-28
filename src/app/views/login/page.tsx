@@ -1,3 +1,4 @@
+"use client"
 import Navbar from "@/app/components/Navigation";
 import styles from "@/app/page.module.css";
 import LoginForm from "@/app/components/LoginForm";
