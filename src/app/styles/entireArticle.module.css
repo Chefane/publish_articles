@@ -1,0 +1,60 @@
+/* Base styles for all screen sizes */
+.article_container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; /* Center-align content on all screen sizes */
+  }
+  
+  .article_title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .article_author {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .article_content {
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: justify; 
+  }
+  
+  .spinner_container {
+    margin-top: 20%;
+  }
+
+  .published_date {
+    font-size: 14px; /* Adjust the font size as needed */
+    color: #888; /* Adjust the color as needed */
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .article_title {
+      font-size: 24px; /* Decrease font size for smaller screens */
+    }
+  
+    .article_content {
+      font-size: 16px; /* Decrease font size for smaller screens */
+      text-align: justify; 
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .article_title {
+      font-size: 20px; /* Further decrease font size for even smaller screens */
+    }
+  
+    .article-container {
+      padding: 10px; /* Reduce padding for smaller screens */
+    }
+  
+    .spinner-container {
+      margin-top: 15%; /* Adjust spinner margin for smaller screens */
+    }
+  }

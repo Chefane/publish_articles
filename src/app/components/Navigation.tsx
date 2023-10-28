@@ -25,7 +25,7 @@ const Navigation = () => {
          Published Articles
         </Link>
       </Nav>
-      <Nav  className={styles.align}>
+      <Nav>
       <Link  className="nav-link" href="/views/signup">
          Create Account
         </Link>

@@ -10,8 +10,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
 
     const id = req.url.split("search/")[1];
-    console.log(id);
-
+ 
     if (!id) {
       return NextResponse.json(
         { message: "Invalid Parameter" },

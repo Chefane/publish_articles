@@ -6,22 +6,20 @@ import { Container, Card, Button } from "react-bootstrap";
 import styles from "@/app/styles/article.module.css";
 import { useRouter } from "next/navigation";
 
-
-
 interface ArticlesData {
-  _id:string;
+  _id: string;
   author_name: string;
   article_title: string;
   article_summary: string;
-  article_image: string;
+  article_image: { type: string; data: number[] };
   entire_article: string;
   published_date: string;
 }
 
 const ArticleCard: React.FC = () => {
-    const router = useRouter(); 
-   const [showFullContent, setShowFullContent] = useState(false);
-  
+  const router = useRouter();
+  const [showFullContent, setShowFullContent] = useState(false);
+
   const [articlesData, setArticlesData] = useState<ArticlesData[]>([]);
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState<{ [key: number]: boolean }>(
@@ -64,12 +62,13 @@ const ArticleCard: React.FC = () => {
                 (acc: any, _: any, index: any) => ({ ...acc, [index]: false }),
                 {}
               );
-          
+
             setShowContent(initialShowContentState);
           } else {
             throw new Error("Data.articles is not an array");
           }
           setLoading(false);
+        
         }, 2000);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -79,7 +78,6 @@ const ArticleCard: React.FC = () => {
 
     fetchData();
   }, []);
-
 
   return (
     <>
@@ -93,6 +91,7 @@ const ArticleCard: React.FC = () => {
         </div>
       ) : articlesData.length > 0 ? (
         articlesData.map((articles, index) => (
+          
           <Container className={styles.articleContainer} key={index}>
             <Card>
               <Card.Body>
@@ -105,12 +104,11 @@ const ArticleCard: React.FC = () => {
                     marginBottom: "10px",
                   }}
                 >
-                  <p>{articles.article_image.toString()}</p>
-                 <Image
-                    src={articles.article_image}
+                  <Image
+                    src={`data:image/jpeg;base64,${Buffer.from( new Uint8Array(articles.article_image.data) ).toString("base64")}`}
                     alt=""
-                    layout="fill"
-                    objectFit="cover"
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <Card.Subtitle className="mb-2 text-muted">
@@ -126,10 +124,10 @@ const ArticleCard: React.FC = () => {
                 </Card.Text>
                 {articles.article_summary.length > 500 && (
                   <Button
-                    variant="primary"
+                    variant="dark"
                     onClick={() => toggleContent(index)}
                   >
-                    {showContent[index] ? "See Less" : "See More"}
+                    {showContent[index] ? "Read Less" : "Read  More"}
                   </Button>
                 )}
                 <p className="card-text">
@@ -147,5 +145,3 @@ const ArticleCard: React.FC = () => {
 };
 
 export default ArticleCard;
-
-
