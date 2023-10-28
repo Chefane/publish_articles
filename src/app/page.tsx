@@ -6,10 +6,9 @@ import ArticleCard from "@/app/components/ArticleCard";
 const Home: React.FC = () => {
   return (
     <>
-      <Navbar/>
-      <div className="container fluid">
-        <ArticleCard />
-      </div>
+      <Navbar />
+
+      <ArticleCard />
     </>
   );
 };

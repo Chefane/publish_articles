@@ -68,7 +68,6 @@ const ArticleCard: React.FC = () => {
             throw new Error("Data.articles is not an array");
           }
           setLoading(false);
-        
         }, 2000);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -91,51 +90,47 @@ const ArticleCard: React.FC = () => {
         </div>
       ) : articlesData.length > 0 ? (
         articlesData.map((articles, index) => (
-          
-          <Container className={styles.articleContainer} key={index}>
-            <Card>
-              <Card.Body>
-                <Card.Title>{articles.article_title}</Card.Title>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "200px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <Image
-                    src={`data:image/jpeg;base64,${Buffer.from( new Uint8Array(articles.article_image.data) ).toString("base64")}`}
-                    alt=""
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Author: {articles.author_name}
-                </Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Published on: {formatPublishedDate(articles.published_date)}
-                </Card.Subtitle>
-                <Card.Text>
-                  {showContent[index]
-                    ? articles.article_summary
-                    : articles.article_summary.slice(0, 500) + "..."}
-                </Card.Text>
-                {articles.article_summary.length > 500 && (
-                  <Button
-                    variant="dark"
-                    onClick={() => toggleContent(index)}
-                  >
-                    {showContent[index] ? "Read Less" : "Read  More"}
-                  </Button>
-                )}
-                <p className="card-text">
-                  <small className="text-muted"></small>
-                </p>
-              </Card.Body>
-            </Card>
-          </Container>
+          <Card key={index}>
+            <Card.Body>
+              <Card.Title>{articles.article_title}</Card.Title>
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "200px",
+                  marginBottom: "10px",
+                }}
+              >
+                <Image
+                  src={`data:image/jpeg;base64,${Buffer.from(
+                    new Uint8Array(articles.article_image.data)
+                  ).toString("base64")}`}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <Card.Subtitle className="mb-2 text-muted">
+                Author: {articles.author_name}
+              </Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">
+                Published on: {formatPublishedDate(articles.published_date)}
+              </Card.Subtitle>
+              <Card.Text>
+                {showContent[index]
+                  ? articles.article_summary
+                  : articles.article_summary.slice(0, 500) + "..."}
+              </Card.Text>
+              {articles.article_summary.length > 500 && (
+                <Button variant="dark" onClick={() => toggleContent(index)}>
+                  {showContent[index] ? "Read Less" : "Read  More"}
+                </Button>
+              )}
+              <p className="card-text">
+                <small className="text-muted"></small>
+              </p>
+            </Card.Body>
+          </Card>
         ))
       ) : (
         <p>No Article data available.</p>
