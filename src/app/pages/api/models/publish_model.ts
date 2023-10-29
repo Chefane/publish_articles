@@ -27,7 +27,7 @@ const PublisherSchema = new mongoose.Schema({
   },
   
   article_image: {
-    type: Buffer,
+    type: String,
     required: [true, 'Please enter the image of this article'],
   },
 

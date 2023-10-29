@@ -1,11 +1,10 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { Form, Button, Toast, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
-import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 const WriteStoryForm = () => {
@@ -35,30 +34,38 @@ const WriteStoryForm = () => {
     published_date: "",
   });
 
-
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageBase64, setImageBase64] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileInput = e.target;
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
 
-    if (fileInput) {
-      const file = fileInput.files ? fileInput.files[0] : null;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64Data = reader.result as string;
 
-      if (file) {
-        const reader = new FileReader();
-        
-        reader.onload = (event) => {
-          if (event.target) {
-            setFormData({
-              ...formData,
-              article_image: event.target.result as string,
-            });
-          }
-        };
-        reader.readAsDataURL(file);
-      }
+        setFormData({
+          ...formData,
+          article_image: base64Data,
+        });
+
+        setImageFile(file);
+        setImageBase64(base64Data);
+      };
+    } else {
+      setImageFile(null);
+      setImageBase64(null);
+
+      setFormData({
+        ...formData,
+        article_image: null,
+      });
     }
   };
 
@@ -71,7 +78,7 @@ const WriteStoryForm = () => {
 
       if (response.status === 200) {
         setSuccess("Story Saved Successfully");
-        localStorage.setItem('article_title', formData.article_title);
+        localStorage.setItem("article_title", formData.article_title);
         handleNavigation();
       } else if (response.status === 400) {
         setError("Story Already Published");
@@ -146,8 +153,8 @@ const WriteStoryForm = () => {
               <Form.Control
                 type="file"
                 name="article_image"
-                accept="image/*"
                 onChange={handleImageChange}
+                accept="image/*"
               />
             </Form.Group>
             <Form.Group controlId="published_date">

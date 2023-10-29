@@ -5,14 +5,14 @@ import Link from "next/link";
 import { Container, Card, Button } from "react-bootstrap";
 import styles from "@/app/styles/article.module.css";
 import { useRouter } from "next/navigation";
+import { Buffer } from "buffer";
 
 interface ArticlesData {
   _id: string;
   author_name: string;
   article_title: string;
   article_summary: string;
-  article_image: { type: string; data: number[] };
-  entire_article: string;
+  article_image: string;
   published_date: string;
 }
 
@@ -55,6 +55,7 @@ const ArticleCard: React.FC = () => {
             throw new Error("No articles yet");
           }
           const data = await response.json();
+          console.log(data);
           if (Array.isArray(data.articles)) {
             setArticlesData(data.articles);
             const initialShowContentState: { [key: number]: boolean } =
@@ -68,7 +69,6 @@ const ArticleCard: React.FC = () => {
             throw new Error("Data.articles is not an array");
           }
           setLoading(false);
-        
         }, 2000);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -91,7 +91,6 @@ const ArticleCard: React.FC = () => {
         </div>
       ) : articlesData.length > 0 ? (
         articlesData.map((articles, index) => (
-          
           <Container fluid className={styles.articleContainer} key={index}>
             <Card>
               <Card.Body>
@@ -100,16 +99,18 @@ const ArticleCard: React.FC = () => {
                   style={{
                     position: "relative",
                     width: "100%",
-                    height: "200px",
+                    height: "300px",
                     marginBottom: "10px",
                   }}
                 >
-                  <Image
-                    src={`data:image/jpeg;base64,${Buffer.from( new Uint8Array(articles.article_image.data) ).toString("base64")}`}
-                    alt=""
-                    width={100}
-                    height={100}
-                  />
+                 
+                    <Image
+                      src={ articles.article_image }
+                      alt={articles.article_title}
+                      width={500}
+                      height={300}
+                      className="img-fluid"
+                    />
                 </div>
                 <Card.Subtitle className="mb-2 text-muted">
                   Author: {articles.author_name}
@@ -123,10 +124,7 @@ const ArticleCard: React.FC = () => {
                     : articles.article_summary.slice(0, 500) + "..."}
                 </Card.Text>
                 {articles.article_summary.length > 500 && (
-                  <Button
-                    variant="dark"
-                    onClick={() => toggleContent(index)}
-                  >
+                  <Button variant="dark" onClick={() => toggleContent(index)}>
                     {showContent[index] ? "Read Less" : "Read  More"}
                   </Button>
                 )}
