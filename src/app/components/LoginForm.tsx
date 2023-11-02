@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Card, Form, Button, Toast } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import jwtDecode from "jwt-decode";
+import styles from "@/app/styles/login.module.css";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -30,9 +31,9 @@ const LoginForm = () => {
         password,
       });
       if (response.status === 401) {
-        setError("User no registered");
+        setError("User not registered");
       } else if (response.status === 400) {
-        setError("username or pasword incorrect");
+        setError("Username or password incorrect");
       } else {
         const token = response.data.token;
         const decodedToken = jwtDecode(token);
@@ -77,6 +78,8 @@ const LoginForm = () => {
   };
 
   return (
+
+    <div className={`d-flex justify-content-center align-items-center ${styles['card-large-screen-margin']}`} style={{ height: '100vh', marginTop: '-20%' }}>
     <Card>
       <Card.Body>
         <Card.Title className="text-center">Login</Card.Title>
@@ -90,6 +93,7 @@ const LoginForm = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              
             />
           </Form.Group>
 
@@ -156,7 +160,9 @@ const LoginForm = () => {
         </Toast>
       </Card.Body>
     </Card>
+  </div>
   );
 };
 
 export default LoginForm;
+
