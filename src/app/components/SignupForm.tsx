@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Toast, Card } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
+import styles from "@/app/styles/signup.module.css";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
@@ -26,18 +27,23 @@ const SignupForm = () => {
         setSuccess("Registration successful");
       }
 
-      if (response.status === 400) {
-        setError("User already registered");
-      }
     } catch (err: any) {
-      setError(err.response.message);
+      if (err.response.status === 400){
+        setError("User is already registered");
+      }else{
+        setError("Internal Server Error");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Card>
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{ height: "100vh", marginTop: "-20%" }}
+    >
+  <Card className={styles.cardContainer}>
       <Card.Body>
         <Card.Title className="text-center">Create Account</Card.Title>
         <Form onSubmit={handleUserRegistration}>
@@ -127,6 +133,7 @@ const SignupForm = () => {
         </Toast>
       </Card.Body>
     </Card>
+  </div>
   );
 };
 

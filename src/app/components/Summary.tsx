@@ -167,12 +167,13 @@ const WriteStoryForm = () => {
                 required
               />
             </Form.Group>
+            <div className="d-flex justify-content-center align-items-center">
             <Button
               className="btn btn-dark"
               type="submit"
               style={{
                 marginTop: "10px",
-                marginLeft: "40%",
+                marginLeft: "-4%",
               }}
               disabled={isLoading}
             >
@@ -191,6 +192,7 @@ const WriteStoryForm = () => {
                 "Save Article Summary and Continue"
               )}
             </Button>
+          </div>
           </Form>
           <Toast
             show={!!success}

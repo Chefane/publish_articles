@@ -15,23 +15,23 @@ const AuthorNav = () => {
       <Navbar.Toggle aria-controls="navbarSupportedContent" />
       <Navbar.Collapse id="navbarSupportedContent">
         <Nav className="mr-auto">
-          <Link    className="nav-link" href="/">
+          <Link className="nav-link" href="/">
             Home
           </Link>
-          <Link    className="nav-link" href="/write-article">
-         Write Article
+          <Link className="nav-link" href="/write-article">
+            Write Article
           </Link>
-          <Link  className="nav-link" href="/published">
-        Published
+          <Link className="nav-link" href="/published">
+            Published
           </Link>
         </Nav>
-        <Nav  className={styles.align}>
+        <Nav className={styles.align} >
           <NavDropdown title="Profile">
-            <Link  className="dropdown-item" href="/profile">
+            <Link className="dropdown-item" href="/profile">
               Profile
             </Link>
-            <Link  className="dropdown-item"  href="/logout">
-            Logout
+            <Link className="dropdown-item" href="/logout">
+              Logout
             </Link>
           </NavDropdown>
         </Nav>
@@ -41,3 +41,4 @@ const AuthorNav = () => {
 };
 
 export default AuthorNav;
+
