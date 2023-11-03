@@ -30,7 +30,7 @@ const SignupForm = () => {
         setError("User already registered");
       }
     } catch (err: any) {
-      setError(err.response.data.message);
+      setError(err.response.message);
     } finally {
       setLoading(false);
     }
