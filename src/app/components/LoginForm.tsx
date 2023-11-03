@@ -15,6 +15,8 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const router = useRouter();
   const [userData, setUserData] = useState<{
     userId: string;
@@ -23,6 +25,20 @@ const LoginForm = () => {
   } | null>(null);
 
   const handleLogin = async () => {
+    setError("");
+    setUsernameError("");
+    setPasswordError("");
+  
+    if (!username) {
+      setUsernameError("Username is required");
+      return;
+    }
+  
+    if (!password) {
+      setPasswordError("Password is required");
+      return;
+    }
+
     try {
       setLoading(true);
 
