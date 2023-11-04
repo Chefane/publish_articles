@@ -21,9 +21,6 @@ const Navigation = () => {
         <Link    className="nav-link" href="/views/login">
          Login
         </Link>
-        <Link  className="nav-link" href="/published">
-         Published Articles
-        </Link>
       </Nav>
       <Nav>
       <Link  className="nav-link" href="/views/signup">
