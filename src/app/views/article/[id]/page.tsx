@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Spinner from "react-bootstrap/Spinner";
 import NavBar from "@/app/components/Navigation";
+import Image from "next/image";
 import styles from "@/app/styles/entireArticle.module.css";
 
 interface SearchParams {
@@ -11,9 +12,11 @@ interface SearchParams {
 }
 
 interface Article {
+
   _id: string;
   author_name: string;
   article_title: string;
+  article_image: string;
   entire_article: string;
   published_date: string;
 }
@@ -48,6 +51,13 @@ const ArticlePage = () => {
       <div>
         {article ? (
           <div className={styles.article_container}>
+             <Image
+                    className="card-img-top img-fluid"
+                    src={article.article_image}
+                    alt={article.article_title}
+                    width={500}
+                    height={250}
+                  />
             <h1 className={styles.article_title}>{article.article_title}</h1>
             <p className={styles.article_author}>By {article.author_name}</p>
             <p className={styles.published_date}>{article.published_date}</p>

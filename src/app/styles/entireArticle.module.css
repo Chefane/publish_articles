@@ -1,9 +1,9 @@
-/* Base styles for all screen sizes */
+
 .article_container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    text-align: center; /* Center-align content on all screen sizes */
+    text-align: center; 
   }
   
   .article_title {
