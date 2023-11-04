@@ -81,7 +81,8 @@ const ArticleCard: React.FC = () => {
 
   return (
     <>
-        {loading ? (
+    <h1 className="text-center">Explore Published Articles</h1>
+      {loading ? (
         <div className="text-center" style={{ marginTop: "25%" }}>
           <div className="spinner-border spinner-border-lg" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -91,55 +92,49 @@ const ArticleCard: React.FC = () => {
         <Container fluid>
           <Row>
             {articlesData.map((article, index) => (
-             <Col lg={6} md={6} sm={12} key={index}>
-             <Container fluid className={styles.articleContainer}>
-               <div className={styles.imageContainer}>
-                 <Image
-                   src={article.article_image}
-                   alt={article.article_title}
-                   layout="responsive"
-                   width={500}
-                   height={250}
-                   className="img-fluid"
-                 />
-               </div>
-               <div className="card-content">
-                 <Card className={styles.card}>
-                   <Card.Body>
-                     <Card.Title>{article.article_title}</Card.Title>
-                     <Card.Subtitle
-                       className={`mb-2 text-muted ${styles.cardSubtitle}`}
-                     >
-                       Author: {article.author_name}
-                     </Card.Subtitle>
-                     <Card.Subtitle className="mb-2 text-muted">
-                       Published on: {formatPublishedDate(article.published_date)}
-                     </Card.Subtitle>
-                     <Card.Text>
-                       {showContent[index]
-                         ? article.article_summary
-                         : article.article_summary.slice(0, 500) + "..."}
-                     </Card.Text>
-                     {article.article_summary.length > 500 && (
-                       <Button variant="dark" onClick={() => toggleContent(index)}>
-                         {showContent[index] ? "Read Less" : "Read More"}
-                       </Button>
-                     )}
-                     <p className="card-text">
-                       <small className="text-muted"></small>
-                     </p>
-                   </Card.Body>
-                 </Card>
-               </div>
-             </Container>
-           </Col>
+              <Col lg={6} md={6} sm={12} key={index}>
+                <div className="card">
+                  <Image
+                    className="card-img-top img-fluid"
+                    src={article.article_image}
+                    alt={article.article_title}
+                    width={500}
+                    height={250}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{article.article_title}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      {" "}
+                      Author: {article.author_name}
+                    </h6>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      Published on:{" "}
+                      {formatPublishedDate(article.published_date)}
+                    </Card.Subtitle>
+                    <p className="card-text">
+                      {" "}
+                      {showContent[index]
+                        ? article.article_summary
+                        : article.article_summary.slice(0, 500) + "..."}
+                    </p>
+                    {article.article_summary.length > 500 && (
+                      <Button
+                        variant="dark"
+                        onClick={() => toggleContent(index)}
+                      >
+                        {showContent[index] ? "Read Less" : "Read More"}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </Col>
             ))}
           </Row>
         </Container>
       ) : (
         <p>No Article data available.</p>
       )}
-  </>
+    </>
   );
 };
 

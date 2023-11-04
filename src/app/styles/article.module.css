@@ -1,31 +1,4 @@
-.articleContainer {
-    border: 2px solid #fdfdfd;
-    padding: 20px;
-    margin: 20px auto;
 
-  }
-
-.articleContainer {
-  margin-bottom: 20px;
-}
-
-.card {
-
-  padding: 10px;
-}
-
-.imageContainer {
-
-  position: relative;
-  overflow: hidden;
-  height: 250px;
-}
-
-.imageContainer img {
-  width: 100%;
-  height: auto;
-}
-  
   @media (max-width: 576px) {
   .cardSubtitle {
     margin-top: -30%;
@@ -39,10 +12,7 @@
       max-width: 90%;
     }
 
-    .card {
-      padding: 5px; /* Reduce padding on smaller screens */
-      margin: -5px; /* Reduce margin on smaller screens */
-    }
+  
   
   
   }
