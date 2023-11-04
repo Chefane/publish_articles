@@ -81,7 +81,7 @@ const ArticleCard: React.FC = () => {
 
   return (
     <>
-     {loading ? (
+        {loading ? (
         <div className="text-center" style={{ marginTop: "25%" }}>
           <div className="spinner-border spinner-border-lg" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -94,38 +94,42 @@ const ArticleCard: React.FC = () => {
               <Col lg={6} md={6} sm={12} key={index}>
                 <Container fluid className={styles.articleContainer}>
                   <Card>
-                    <Card.Body>
-                      <Card.Title>{article.article_title}</Card.Title>
-                      <div className="image-container">
-                        <Image
-                          src={article.article_image}
-                          alt={article.article_title}
-                          layout="responsive"
-                          width={500}
-                          height={250} // Set a fixed height for the image
-                          className="img-fluid"
-                        />
-                      </div>
-                      <Card.Subtitle className={`mb-2 text-muted ${styles.cardSubtitle}`}>
-                        Author: {article.author_name}
-                      </Card.Subtitle>
-                      <Card.Subtitle className="mb-2 text-muted">
-                        Published on: {formatPublishedDate(article.published_date)}
-                      </Card.Subtitle>
-                      <Card.Text>
-                        {showContent[index]
-                          ? article.article_summary
-                          : article.article_summary.slice(0, 500) + "..."}
-                      </Card.Text>
-                      {article.article_summary.length > 500 && (
-                        <Button variant="dark" onClick={() => toggleContent(index)}>
-                          {showContent[index] ? "Read Less" : "Read More"}
-                        </Button>
-                      )}
-                      <p className="card-text">
-                        <small className="text-muted"></small>
-                      </p>
-                    </Card.Body>
+                    <div className="image-container">
+                      <Image
+                        src={article.article_image}
+                        alt={article.article_title}
+                        layout="responsive"
+                        width={500}
+                        height={250} // Set a fixed height for the image
+                        className="img-fluid"
+                      />
+                    </div>
+                    <div className="card-content">
+                      <Card.Body>
+                        <Card.Title>{article.article_title}</Card.Title>
+                        <Card.Subtitle
+                          className={`mb-2 text-muted ${styles.cardSubtitle}`}
+                        >
+                          Author: {article.author_name}
+                        </Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">
+                          Published on: {formatPublishedDate(article.published_date)}
+                        </Card.Subtitle>
+                        <Card.Text>
+                          {showContent[index]
+                            ? article.article_summary
+                            : article.article_summary.slice(0, 500) + "..."}
+                        </Card.Text>
+                        {article.article_summary.length > 500 && (
+                          <Button variant="dark" onClick={() => toggleContent(index)}>
+                            {showContent[index] ? "Read Less" : "Read More"}
+                          </Button>
+                        )}
+                        <p className="card-text">
+                          <small className="text-muted"></small>
+                        </p>
+                      </Card.Body>
+                    </div>
                   </Card>
                 </Container>
               </Col>
