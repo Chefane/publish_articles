@@ -90,10 +90,12 @@ const ArticleCard: React.FC = () => {
       ) : articlesData.length > 0 ? (
         <Container fluid>
           <Row>
+
             {articlesData.map((article, index) => (
               <Col lg={6} md={6} sm={12} key={index}>
                 <Container fluid className={styles.articleContainer}>
                   <Card>
+                  <Card.Title>{article.article_title}</Card.Title>
                     <div className="image-container">
                       <Image
                         src={article.article_image}
@@ -106,7 +108,6 @@ const ArticleCard: React.FC = () => {
                     </div>
                     <div className="card-content">
                       <Card.Body>
-                        <Card.Title>{article.article_title}</Card.Title>
                         <Card.Subtitle
                           className={`mb-2 text-muted ${styles.cardSubtitle}`}
                         >
