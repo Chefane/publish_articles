@@ -4,6 +4,12 @@
     margin: 20px auto;
 
   }
+
+  @media (max-width: 576px) {
+  .cardSubtitle {
+    margin-top: -30%;
+  }
+}
   
   @media (max-width: 768px) {
     .articleContainer {

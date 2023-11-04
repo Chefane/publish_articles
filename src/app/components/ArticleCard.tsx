@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import styles from "@/app/styles/article.module.css";
 import { useRouter } from "next/navigation";
 import { Buffer } from "buffer";
@@ -81,64 +81,61 @@ const ArticleCard: React.FC = () => {
 
   return (
     <>
-      {loading ? (
+     {loading ? (
         <div className="text-center" style={{ marginTop: "25%" }}>
-          {" "}
-          {/* Center the spinner */}
           <div className="spinner-border spinner-border-lg" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       ) : articlesData.length > 0 ? (
-        articlesData.map((articles, index) => (
-          <Container fluid className={styles.articleContainer} key={index}>
-            <Card>
-              <Card.Body>
-                <Card.Title>{articles.article_title}</Card.Title>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "300px",
-                    marginBottom: "10px",
-                  }}
-                >
-                 
-                    <Image
-                      src={ articles.article_image }
-                      alt={articles.article_title}
-                      width={500}
-                      height={300}
-                      className="img-fluid"
-                    />
-                </div>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Author: {articles.author_name}
-                </Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Published on: {formatPublishedDate(articles.published_date)}
-                </Card.Subtitle>
-                <Card.Text>
-                  {showContent[index]
-                    ? articles.article_summary
-                    : articles.article_summary.slice(0, 500) + "..."}
-                </Card.Text>
-                {articles.article_summary.length > 500 && (
-                  <Button variant="dark" onClick={() => toggleContent(index)}>
-                    {showContent[index] ? "Read Less" : "Read  More"}
-                  </Button>
-                )}
-                <p className="card-text">
-                  <small className="text-muted"></small>
-                </p>
-              </Card.Body>
-            </Card>
-          </Container>
-        ))
+        <Container fluid>
+          <Row>
+            {articlesData.map((article, index) => (
+              <Col lg={6} md={6} sm={12} key={index}>
+                <Container fluid className={styles.articleContainer}>
+                  <Card>
+                    <Card.Body>
+                      <Card.Title>{article.article_title}</Card.Title>
+                      <div className="image-container">
+                        <Image
+                          src={article.article_image}
+                          alt={article.article_title}
+                          layout="responsive"
+                          width={500}
+                          height={250} // Set a fixed height for the image
+                          className="img-fluid"
+                        />
+                      </div>
+                      <Card.Subtitle className={`mb-2 text-muted ${styles.cardSubtitle}`}>
+                        Author: {article.author_name}
+                      </Card.Subtitle>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        Published on: {formatPublishedDate(article.published_date)}
+                      </Card.Subtitle>
+                      <Card.Text>
+                        {showContent[index]
+                          ? article.article_summary
+                          : article.article_summary.slice(0, 500) + "..."}
+                      </Card.Text>
+                      {article.article_summary.length > 500 && (
+                        <Button variant="dark" onClick={() => toggleContent(index)}>
+                          {showContent[index] ? "Read Less" : "Read More"}
+                        </Button>
+                      )}
+                      <p className="card-text">
+                        <small className="text-muted"></small>
+                      </p>
+                    </Card.Body>
+                  </Card>
+                </Container>
+              </Col>
+            ))}
+          </Row>
+        </Container>
       ) : (
         <p>No Article data available.</p>
       )}
-    </>
+  </>
   );
 };
 
