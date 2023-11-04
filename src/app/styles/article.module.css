@@ -1,4 +1,7 @@
 
+.cardMargin{
+  margin-top: 10px;
+}
   @media (max-width: 576px) {
   .cardSubtitle {
     margin-top: -30%;
@@ -11,8 +14,4 @@
       margin: 10px auto;
       max-width: 90%;
     }
-
-  
-  
-  
   }

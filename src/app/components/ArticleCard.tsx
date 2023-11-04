@@ -93,7 +93,7 @@ const ArticleCard: React.FC = () => {
           <Row>
             {articlesData.map((article, index) => (
               <Col lg={6} md={6} sm={12} key={index}>
-                <div className="card">
+                <div className={`card ${styles.cardMargin}`}>
                   <Image
                     className="card-img-top img-fluid"
                     src={article.article_image}
